@@ -199,6 +199,11 @@ a {
   padding: 0.55rem 0.8rem;
 }
 
+.like-button.liked {
+  background: #fff8e1;
+  border-color: #f0c14b;
+}
+
 @media (max-width: 40rem) {
   .site-header,
   .account-nav {
