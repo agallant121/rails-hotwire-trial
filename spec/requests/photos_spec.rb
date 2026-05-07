@@ -31,6 +31,7 @@ RSpec.describe "Photos", type: :request do
 
     expect(response).to have_http_status(:ok)
     expect(response.body).to include("10 photos")
+    expect(response.body).to include("@hotwired/turbo-rails")
 
     page = Nokogiri::HTML(response.body)
 
@@ -44,6 +45,7 @@ RSpec.describe "Photos", type: :request do
       expect(card.at_css(%(img[alt="#{photo.alt}"]))).to be_present
       expect(card.css(".like-icon").size).to eq(1)
       expect(card.css(".source-icon").size).to eq(1)
+      expect(card.at_css(%(turbo-frame[id="like_photo_#{photo.id}"]))).to be_present
     end
   end
 end
