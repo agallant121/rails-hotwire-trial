@@ -1,8 +1,10 @@
 require "csv"
 
-User.find_or_create_by!(email: "demo@example.com") do |user|
-  user.password = "password"
-  user.password_confirmation = "password"
+["demo@example.com", "demo2@example.com"].each do |email|
+  User.find_or_create_by!(email: email) do |user|
+    user.password = "password"
+    user.password_confirmation = "password"
+  end
 end
 
 CSV.foreach(Rails.root.join("photos.csv"), headers: true) do |row|
