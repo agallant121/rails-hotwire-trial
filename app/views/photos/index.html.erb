@@ -1,0 +1,8 @@
+<section class="gallery-header">
+  <h1>All Photos</h1>
+  <p><%= pluralize(@photos.size, "photo") %></p>
+</section>
+
+<section class="photo-grid" aria-label="All photos">
+  <%= render @photos %>
+</section>
