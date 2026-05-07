@@ -1,6 +1,15 @@
 require "rails_helper"
 
 RSpec.describe "Authentication", type: :request do
+  it "shows a styled sign in page" do
+    get new_user_session_path
+
+    expect(response).to have_http_status(:ok)
+    expect(response.body).to include("auth-card")
+    expect(response.body).to include("logo")
+    expect(response.body).to include("Sign in")
+  end
+
   it "redirects signed out users to sign in" do
     get root_path
 
