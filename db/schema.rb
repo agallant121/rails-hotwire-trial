@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_07_131812) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_07_142510) do
+  create_table "photos", force: :cascade do |t|
+    t.integer "pexels_id", null: false
+    t.integer "width", null: false
+    t.integer "height", null: false
+    t.string "source_url", null: false
+    t.string "photographer", null: false
+    t.string "medium_url", null: false
+    t.text "alt"
+    t.integer "likes_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pexels_id"], name: "index_photos_on_pexels_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
