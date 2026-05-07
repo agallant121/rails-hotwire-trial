@@ -1,0 +1,19 @@
+<article class="photo-card">
+  <%= image_tag photo.medium_url, alt: photo.alt.presence || "Photo by #{photo.photographer}", class: "photo-image" %>
+
+  <div class="photo-content">
+    <div class="photo-details">
+      <h2><%= photo.photographer %></h2>
+
+      <%= link_to photo.source_url, class: "source-link", target: "_blank", rel: "noopener", aria: { label: "View source photo by #{photo.photographer}" } do %>
+        <%= image_tag "links.svg", alt: "", class: "source-icon" %>
+        <span>Source</span>
+      <% end %>
+    </div>
+
+    <button class="like-button" type="button">
+      <%= image_tag "star-line.svg", alt: "", class: "like-icon" %>
+      <span><%= photo.likes_count %></span>
+    </button>
+  </div>
+</article>
