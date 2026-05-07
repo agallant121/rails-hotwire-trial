@@ -34,5 +34,7 @@ RSpec.describe "Authentication", type: :request do
 
     expect(response).to have_http_status(:ok)
     expect(response.body).to include("All Photos")
+    expect(response.body).to include("data-controller=\"flash\"")
+    expect(response.body).to include("data-action=\"flash#dismiss\"")
   end
 end
