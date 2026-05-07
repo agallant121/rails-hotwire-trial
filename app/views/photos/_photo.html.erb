@@ -1,4 +1,4 @@
-<article class="photo-card">
+<article id="<%= dom_id(photo) %>" class="photo-card">
   <%= image_tag photo.medium_url, alt: photo.alt.presence || "Photo by #{photo.photographer}", class: "photo-image" %>
 
   <div class="photo-content">
