@@ -1,5 +1,24 @@
 # Clever's Rails + Hotwire Coding Interview
 
+## Local Setup
+
+```bash
+bundle install
+bin/rails db:setup
+bin/rails server
+```
+
+Seeded user:
+
+- Email: `demo@example.com`
+- Password: `password`
+
+Run the test suite with:
+
+```bash
+bin/rails test
+```
+
 Welcome to Clever's full-stack coding challenge. You'll build a small but complete web application using **Ruby on Rails** and **Hotwire** (Turbo + Stimulus). The goal is to assess how you think about Rails conventions, server-rendered interactivity, and clean UI without a heavy JavaScript framework.
 
 ---
