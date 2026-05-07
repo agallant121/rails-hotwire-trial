@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "photo-results" do %>
+  <%= render "photos/photo_results", pagy: @pagy, photos: @photos, liked_photo_ids: @liked_photo_ids %>
+<% end %>

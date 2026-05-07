@@ -1,8 +1,8 @@
-<section class="gallery-header">
-  <h1>All Photos</h1>
-  <p><%= pluralize(@photos.size, "photo") %></p>
-</section>
+<section id="photos">
+  <div class="gallery-header">
+    <h1>All Photos</h1>
+    <p><%= pluralize(@pagy.count, "photo") %></p>
+  </div>
 
-<section class="photo-grid" aria-label="All photos">
-  <%= render @photos, liked_photo_ids: @liked_photo_ids %>
+  <%= render "photos/photo_results", pagy: @pagy, photos: @photos, liked_photo_ids: @liked_photo_ids %>
 </section>
