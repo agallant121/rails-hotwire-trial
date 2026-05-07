@@ -8,15 +8,15 @@
       <% if pagy.previous %>
         <%= link_to "Previous", photos_path(page: pagy.previous), data: { turbo_stream: true }, class: "pagination-link" %>
       <% else %>
-        <span class="pagination-link disabled">Previous</span>
+        <span class="pagination-link disabled"><%= "Previous" %></span>
       <% end %>
 
-      <span class="pagination-status">Page <%= pagy.page %> of <%= pagy.pages %></span>
+      <span class="pagination-status"><%= "Page" %> <%= pagy.page %> <%= "of" %> <%= pagy.pages %></span>
 
       <% if pagy.next %>
         <%= link_to "Next", photos_path(page: pagy.next), data: { turbo_stream: true }, class: "pagination-link" %>
       <% else %>
-        <span class="pagination-link disabled">Next</span>
+        <span class="pagination-link disabled"><%= "Next" %></span>
       <% end %>
     </nav>
   <% end %>

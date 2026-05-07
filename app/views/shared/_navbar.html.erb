@@ -1,7 +1,7 @@
 <header class="site-header">
   <%= link_to root_path, class: "brand", aria: { label: "Photo Gallery" } do %>
     <%= image_tag "logo.svg", alt: "Clever", class: "brand-logo" %>
-    <span>Photo Gallery</span>
+    <span><%= "Photo Gallery" %></span>
   <% end %>
 
   <% if user_signed_in? %>

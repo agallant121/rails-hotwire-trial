@@ -7,7 +7,7 @@
 
       <%= link_to photo.source_url, class: "source-link", target: "_blank", rel: "noopener", aria: { label: "View source photo by #{photo.photographer}" } do %>
         <%= image_tag "links.svg", alt: "", class: "source-icon" %>
-        <span>Source</span>
+        <span><%= "Source" %></span>
       <% end %>
     </div>
 
