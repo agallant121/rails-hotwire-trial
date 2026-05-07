@@ -1,23 +1,79 @@
 # Clever's Rails + Hotwire Coding Interview
 
+Photo Gallery is a Rails + Hotwire app where signed-in users can browse seeded photos and like or unlike them without a full page reload.
+
 ## Local Setup
 
+This app uses:
+
+- Ruby `3.4.2`
+- Rails `8.0.5`
+- SQLite
+- Devise
+- Hotwire
+- RSpec
+
+From the project root, run:
+
 ```bash
+ruby -v
 bundle install
 bin/rails db:setup
-bin/rails server
 ```
 
-Seeded user:
+Use Ruby `3.4.2`. If you manage Ruby versions with asdf, you can install the project version with:
+
+```bash
+asdf install
+```
+
+`db:setup` creates the database, runs migrations, and seeds:
+
+- the demo users from `db/seeds.rb`
+- the 10 photos from `photos.csv`
+
+Seeded users:
 
 - Email: `demo@example.com`
 - Password: `password`
 
-Run the test suite with:
+- Email: `demo2@example.com`
+- Password: `password`
+
+Start the app:
 
 ```bash
-bin/rails test
+bin/rails server
 ```
+
+Then open:
+
+```text
+http://localhost:3000
+```
+
+Run the test suite:
+
+```bash
+bundle exec rspec
+```
+
+If you want to reset the local database from scratch:
+
+```bash
+bin/rails db:drop db:create db:migrate db:seed
+```
+
+## Implementation Notes
+
+- Authentication uses Devise.
+- Sign-up is intentionally not exposed; users are seeded in `db/seeds.rb`.
+- Photos are imported from `photos.csv` during seeding and stored in the database.
+- Likes use Rails routes/controllers with Turbo Frames and Turbo Streams.
+- Like counts persist with a database-backed counter cache.
+- Each user can like each photo only once, enforced by model validation and a database unique index.
+- Pagination uses Pagy and updates the photo results with Turbo Streams.
+- Flash message dismissal uses a small Stimulus controller.
 
 Welcome to Clever's full-stack coding challenge. You'll build a small but complete web application using **Ruby on Rails** and **Hotwire** (Turbo + Stimulus). The goal is to assess how you think about Rails conventions, server-rendered interactivity, and clean UI without a heavy JavaScript framework.
 
