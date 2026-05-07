@@ -27,11 +27,17 @@
 
     <main class="page">
       <% if notice.present? %>
-        <p class="flash flash-notice"><%= notice %></p>
+        <div class="flash flash-notice" data-controller="flash">
+          <p><%= notice %></p>
+          <button class="flash-close" type="button" data-action="flash#dismiss" aria-label="Dismiss message">X</button>
+        </div>
       <% end %>
 
       <% if alert.present? %>
-        <p class="flash flash-alert"><%= alert %></p>
+        <div class="flash flash-alert" data-controller="flash">
+          <p><%= alert %></p>
+          <button class="flash-close" type="button" data-action="flash#dismiss" aria-label="Dismiss message">X</button>
+        </div>
       <% end %>
 
       <%= yield %>
