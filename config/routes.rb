@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :users, skip: :registrations
 
   root "photos#index"
-  resources :photos, only: :index
+  resources :photos, only: :index do
+    resource :like, only: [:create, :destroy]
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

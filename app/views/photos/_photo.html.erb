@@ -11,9 +11,6 @@
       <% end %>
     </div>
 
-    <button class="like-button" type="button">
-      <%= image_tag "star-line.svg", alt: "", class: "like-icon" %>
-      <span><%= photo.likes_count %></span>
-    </button>
+    <%= render "photos/like_button", photo: photo %>
   </div>
 </article>
