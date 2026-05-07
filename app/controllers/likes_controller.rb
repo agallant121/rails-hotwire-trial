@@ -19,6 +19,7 @@ class LikesController < ApplicationController
 
   def respond_with_like_button
     @photo.reload
+    @liked = current_user.likes.exists?(photo: @photo)
 
     respond_to do |format|
       format.html { redirect_to photos_path }

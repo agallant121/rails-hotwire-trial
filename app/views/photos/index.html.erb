@@ -4,5 +4,5 @@
 </section>
 
 <section class="photo-grid" aria-label="All photos">
-  <%= render @photos %>
+  <%= render @photos, liked_photo_ids: @liked_photo_ids %>
 </section>

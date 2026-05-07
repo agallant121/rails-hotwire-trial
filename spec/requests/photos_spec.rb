@@ -19,6 +19,7 @@ RSpec.describe "Photos", type: :request do
         alt: "Photo #{index + 1}"
       )
     end
+    user.likes.create!(photo: photos.first)
 
     post user_session_path, params: {
       user: {
@@ -47,5 +48,11 @@ RSpec.describe "Photos", type: :request do
       expect(card.css(".source-icon").size).to eq(1)
       expect(card.at_css(%(turbo-frame[id="like_photo_#{photo.id}"]))).to be_present
     end
+
+    first_card = page.at_css("##{ActionView::RecordIdentifier.dom_id(photos.first)}")
+    second_card = page.at_css("##{ActionView::RecordIdentifier.dom_id(photos.second)}")
+
+    expect(first_card.at_css(".like-button.liked")).to be_present
+    expect(second_card.at_css(".like-button.liked")).to be_nil
   end
 end

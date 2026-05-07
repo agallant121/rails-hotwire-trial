@@ -11,6 +11,6 @@
       <% end %>
     </div>
 
-    <%= render "photos/like_button", photo: photo %>
+    <%= render "photos/like_button", photo: photo, liked: liked_photo_ids.include?(photo.id) %>
   </div>
 </article>
