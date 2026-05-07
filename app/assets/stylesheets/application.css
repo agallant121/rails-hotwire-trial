@@ -117,9 +117,96 @@ a {
   margin: 0;
 }
 
+.gallery-header {
+  align-items: end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.gallery-header h1 {
+  margin: 0;
+}
+
+.gallery-header p {
+  color: var(--muted-color);
+  margin: 0;
+}
+
+.photo-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+
+.photo-card {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.photo-image {
+  aspect-ratio: 4 / 3;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.photo-content {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.photo-details {
+  min-width: 0;
+}
+
+.photo-details h2 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.source-link {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.35rem;
+  text-decoration: none;
+}
+
+.source-icon,
+.like-icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.like-button {
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-color);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font: inherit;
+  font-weight: 700;
+  gap: 0.35rem;
+  min-height: 2.5rem;
+  padding: 0.55rem 0.8rem;
+}
+
 @media (max-width: 40rem) {
   .site-header,
   .account-nav {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .gallery-header {
     align-items: flex-start;
     flex-direction: column;
   }
