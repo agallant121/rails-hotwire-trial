@@ -30,7 +30,7 @@ RSpec.describe "Likes", type: :request do
     }
   end
 
-  it "likes a photo with a turbo stream response" do
+  it "lets a signed in user like a photo without a full page reload" do
     post photo_like_path(photo), headers: { "Accept" => "text/vnd.turbo-stream.html" }
 
     expect(response.media_type).to eq("text/vnd.turbo-stream.html")
@@ -40,7 +40,7 @@ RSpec.describe "Likes", type: :request do
     expect(user.likes.where(photo: photo).count).to eq(1)
   end
 
-  it "unlikes a photo with a turbo stream response" do
+  it "lets a signed in user unlike a photo without a full page reload" do
     user.likes.create!(photo: photo)
 
     delete photo_like_path(photo), headers: { "Accept" => "text/vnd.turbo-stream.html" }
@@ -50,5 +50,22 @@ RSpec.describe "Likes", type: :request do
     expect(response.body).to include("star-line")
     expect(photo.reload.likes_count).to eq(0)
     expect(user.likes.where(photo: photo).count).to eq(0)
+  end
+
+  it "does not count the same user's like more than once" do
+    2.times do
+      post photo_like_path(photo), headers: { "Accept" => "text/vnd.turbo-stream.html" }
+    end
+
+    expect(photo.reload.likes_count).to eq(1)
+    expect(user.likes.where(photo: photo).count).to eq(1)
+  end
+
+  it "redirects signed out users who try to like a photo" do
+    delete destroy_user_session_path
+
+    post photo_like_path(photo)
+
+    expect(response).to redirect_to(new_user_session_path)
   end
 end
