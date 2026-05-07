@@ -1,13 +1,24 @@
 require "rails_helper"
 
 RSpec.describe "Photos", type: :request do
-  it "shows all photos to signed in users" do
-    user = User.create!(
+  let(:user) do
+    User.create!(
       email: "viewer@example.com",
       password: "password",
       password_confirmation: "password"
     )
+  end
 
+  before do
+    post user_session_path, params: {
+      user: {
+        email: user.email,
+        password: "password"
+      }
+    }
+  end
+
+  it "shows all provided photos to signed in users" do
     photos = 10.times.map do |index|
       Photo.create!(
         pexels_id: index + 1,
@@ -20,13 +31,6 @@ RSpec.describe "Photos", type: :request do
       )
     end
     user.likes.create!(photo: photos.first)
-
-    post user_session_path, params: {
-      user: {
-        email: user.email,
-        password: "password"
-      }
-    }
 
     get photos_path
 
@@ -54,5 +58,33 @@ RSpec.describe "Photos", type: :request do
 
     expect(first_card.at_css(".like-button.liked")).to be_present
     expect(second_card.at_css(".like-button.liked")).to be_nil
+  end
+
+  it "paginates larger photo sets with turbo streams" do
+    25.times do |index|
+      Photo.create!(
+        pexels_id: index + 1,
+        width: 1200 + index,
+        height: 900 + index,
+        source_url: "https://example.com/photos/#{index + 1}",
+        photographer: "Photographer #{index + 1}",
+        medium_url: "https://example.com/photos/#{index + 1}.jpg",
+        alt: "Photo #{index + 1}"
+      )
+    end
+
+    get photos_path
+
+    expect(response.body).to include("Photographer 20")
+    expect(response.body).not_to include("Photographer 21")
+    expect(response.body).to include("Next")
+
+    get photos_path(page: 2), headers: { "Accept" => "text/vnd.turbo-stream.html" }
+
+    expect(response.media_type).to eq("text/vnd.turbo-stream.html")
+    expect(response.body).to include(%(target="photo-results"))
+    expect(response.body).to include("Photographer 21")
+    expect(response.body).to include("Photographer 25")
+    expect(response.body).not_to include("Photographer 20")
   end
 end
