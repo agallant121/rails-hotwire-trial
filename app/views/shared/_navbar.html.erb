@@ -1,0 +1,13 @@
+<header class="site-header">
+  <%= link_to root_path, class: "brand", aria: { label: "Photo Gallery" } do %>
+    <%= image_tag "logo.svg", alt: "Clever", class: "brand-logo" %>
+    <span>Photo Gallery</span>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <nav class="account-nav" aria-label="Account">
+      <span><%= current_user.email %></span>
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "button button-secondary" %>
+    </nav>
+  <% end %>
+</header>
