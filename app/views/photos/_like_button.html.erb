@@ -1,11 +1,11 @@
 <%= turbo_frame_tag dom_id(photo, :like) do %>
   <% if liked %>
-    <%= button_to photo_like_path(photo), method: :delete, class: "like-button liked" do %>
+    <%= button_to photo_like_path(photo), method: :delete, class: "like-button liked", aria: { label: "Unlike photo by #{photo.photographer}" } do %>
       <%= image_tag "star-fill.svg", alt: "", class: "like-icon" %>
       <span><%= photo.likes_count %></span>
     <% end %>
   <% else %>
-    <%= button_to photo_like_path(photo), method: :post, class: "like-button" do %>
+    <%= button_to photo_like_path(photo), method: :post, class: "like-button", aria: { label: "Like photo by #{photo.photographer}" } do %>
       <%= image_tag "star-line.svg", alt: "", class: "like-icon" %>
       <span><%= photo.likes_count %></span>
     <% end %>

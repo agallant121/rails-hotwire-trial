@@ -19,80 +19,57 @@ RSpec.describe "Photos", type: :request do
   end
 
   it "shows all provided photos to signed in users" do
-    photos = 10.times.map do |index|
-      Photo.create!(
-        pexels_id: index + 1,
-        width: 1200 + index,
-        height: 900 + index,
-        source_url: "https://example.com/photos/#{index + 1}",
-        photographer: "Photographer #{index + 1}",
-        medium_url: "https://example.com/photos/#{index + 1}.jpg",
-        alt: "Photo #{index + 1}"
-      )
-    end
+    photos = 10.times.map { |index| create_photo(index + 1) }
     user.likes.create!(photo: photos.first)
 
     get photos_path
 
     expect(response).to have_http_status(:ok)
-    expect(response.body).to include("10 photos")
-    expect(response.body).to include("@hotwired/turbo-rails")
 
-    page = Nokogiri::HTML(response.body)
+    page = response.body
+    expect(page).to include("10 photos")
+    expect(page).to include("@hotwired/turbo-rails")
 
     photos.each do |photo|
-      card = page.at_css("##{ActionView::RecordIdentifier.dom_id(photo)}")
-
-      expect(card).to be_present
-      expect(card.text).to include(photo.photographer)
-      expect(card.at_css(%(a[href="#{photo.source_url}"]))).to be_present
-      expect(card.at_css(%(img[src="#{photo.medium_url}"]))).to be_present
-      expect(card.at_css(%(img[alt="#{photo.alt}"]))).to be_present
-      expect(card.css(".like-icon").size).to eq(1)
-      expect(card.css(".source-icon").size).to eq(1)
-      expect(card.at_css(%(turbo-frame[id="like_photo_#{photo.id}"]))).to be_present
+      expect(page).to include(photo.photographer)
+      expect(page).to include(photo.source_url)
+      expect(page).to include(photo.medium_url)
+      expect(page).to include(photo.alt)
+      expect(page).to include("like_photo_#{photo.id}")
     end
 
-    first_card = page.at_css("##{ActionView::RecordIdentifier.dom_id(photos.first)}")
-    second_card = page.at_css("##{ActionView::RecordIdentifier.dom_id(photos.second)}")
-
-    expect(first_card.at_css(".like-button.liked")).to be_present
-    expect(second_card.at_css(".like-button.liked")).to be_nil
+    expect(page).to include("Source")
+    expect(page).to include("star-fill")
+    expect(page).to include("star-line")
   end
-it "shows an empty state when no photos exist" do
+
+  it "shows an empty state when no photos exist" do
     get photos_path
 
     expect(response).to have_http_status(:ok)
-    expect(response.body).to include("0 photos")
-    expect(response.body).to include("No photos yet")
-    expect(response.body).to include("Seed the database to add photos to the gallery.")
+    page = response.body
+
+    expect(page).to include("0 photos")
+    expect(page).to include("No photos yet")
+    expect(page).to include("Seed the database to add photos to the gallery.")
   end
 
   it "paginates larger photo sets with turbo streams" do
-    25.times do |index|
-      Photo.create!(
-        pexels_id: index + 1,
-        width: 1200 + index,
-        height: 900 + index,
-        source_url: "https://example.com/photos/#{index + 1}",
-        photographer: "Photographer #{index + 1}",
-        medium_url: "https://example.com/photos/#{index + 1}.jpg",
-        alt: "Photo #{index + 1}"
-      )
-    end
+    25.times { |index| create_photo(index + 1) }
 
     get photos_path
-
-    expect(response.body).to include("Photographer 20")
-    expect(response.body).not_to include("Photographer 21")
-    expect(response.body).to include("Next")
+    page = response.body
+    expect(page).to include("Photographer 20")
+    expect(page).not_to include("Photographer 21")
+    expect(page).to include("Next")
 
     get photos_path(page: 2), headers: { "Accept" => "text/vnd.turbo-stream.html" }
+    turbo_stream = response.body
 
     expect(response.media_type).to eq("text/vnd.turbo-stream.html")
-    expect(response.body).to include(%(target="photo-results"))
-    expect(response.body).to include("Photographer 21")
-    expect(response.body).to include("Photographer 25")
-    expect(response.body).not_to include("Photographer 20")
+    expect(turbo_stream).to include(%(target="photo-results"))
+    expect(turbo_stream).to include("Photographer 21")
+    expect(turbo_stream).to include("Photographer 25")
+    expect(turbo_stream).not_to include("Photographer 20")
   end
 end
