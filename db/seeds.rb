@@ -28,6 +28,6 @@ photos.first(4).each do |photo|
   demo_user.likes.find_or_create_by!(photo: photo)
 end
 
-photos.first(2).append(photos.fifth).each do |photo|
+[photos.first, photos.second, photos.fifth].each do |photo|
   demo_user_two.likes.find_or_create_by!(photo: photo)
 end
