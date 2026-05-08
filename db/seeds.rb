@@ -1,6 +1,6 @@
 require "csv"
 
-["demo@example.com", "demo2@example.com"].each do |email|
+[ "demo@example.com", "demo2@example.com" ].each do |email|
   User.find_or_create_by!(email: email) do |user|
     user.password = "password"
     user.password_confirmation = "password"
@@ -28,6 +28,6 @@ photos.first(4).each do |photo|
   demo_user.likes.find_or_create_by!(photo: photo)
 end
 
-[photos.first, photos.second, photos.fifth].each do |photo|
+[ photos.first, photos.second, photos.fifth ].each do |photo|
   demo_user_two.likes.find_or_create_by!(photo: photo)
 end
