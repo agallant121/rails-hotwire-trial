@@ -1,8 +1,14 @@
 <div id="photo-results">
-  <section class="photo-grid" aria-label="All photos">
-    <%= render photos, liked_photo_ids: liked_photo_ids %>
-  </section>
+  <% if photos.any? %>
+    <section class="photo-grid" aria-label="All photos">
+      <%= render photos, liked_photo_ids: liked_photo_ids %>
+    </section>
+  <% else %>
+    <section class="empty-state gallery-empty" aria-label="No photos">
+      <h2><%= "No photos yet" %></h2>
+      <p><%= "Seed the database to add photos to the gallery." %></p>
+    </section>
+  <% end %>
 
   <%= render "shared/pagination", pagy: pagy, path: ->(page) { photos_path(page: page) } %>
 </div>
-

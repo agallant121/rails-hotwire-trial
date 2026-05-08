@@ -59,6 +59,14 @@ RSpec.describe "Photos", type: :request do
     expect(first_card.at_css(".like-button.liked")).to be_present
     expect(second_card.at_css(".like-button.liked")).to be_nil
   end
+it "shows an empty state when no photos exist" do
+    get photos_path
+
+    expect(response).to have_http_status(:ok)
+    expect(response.body).to include("0 photos")
+    expect(response.body).to include("No photos yet")
+    expect(response.body).to include("Seed the database to add photos to the gallery.")
+  end
 
   it "paginates larger photo sets with turbo streams" do
     25.times do |index|

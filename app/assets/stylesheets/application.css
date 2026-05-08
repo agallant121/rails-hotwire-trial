@@ -139,6 +139,12 @@ a {
   margin: 0;
 }
 
+.gallery-empty {
+  margin: 4rem auto;
+  max-width: 28rem;
+  text-align: center;
+}
+
 /* Authentication */
 
 .auth-card {
