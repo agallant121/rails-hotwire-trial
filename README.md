@@ -7,7 +7,7 @@ Photo Gallery is a Rails + Hotwire app where signed-in users can browse seeded p
 - Devise gates access to the gallery.
 - Photos are seeded from `photos.csv` into the database.
 - Likes update with Turbo Frames/Streams.
-- Pagination will use Turbo Frames/Streams when there are more than 20 photos. (Update the controller to show 5 instead of 20 to view functionality.)
+- Pagination uses Turbo Streams when the photo count exceeds the page size.
 - Like counts persist with a counter cache.
 - Users can only like each photo once.
 - The layout is mobile responsive.
