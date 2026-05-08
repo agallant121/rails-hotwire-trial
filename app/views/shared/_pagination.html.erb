@@ -1,0 +1,17 @@
+<% if pagy.pages > 1 %>
+  <nav class="pagination" aria-label="Pagination">
+    <% if pagy.previous %>
+      <%= link_to "Previous", path.call(pagy.previous), data: { turbo_stream: true }, class: "pagination-link" %>
+    <% else %>
+      <span class="pagination-link disabled"><%= "Previous" %></span>
+    <% end %>
+
+    <span class="pagination-status"><%= "Page" %> <%= pagy.page %> <%= "of" %> <%= pagy.pages %></span>
+
+    <% if pagy.next %>
+      <%= link_to "Next", path.call(pagy.next), data: { turbo_stream: true }, class: "pagination-link" %>
+    <% else %>
+      <span class="pagination-link disabled"><%= "Next" %></span>
+    <% end %>
+  </nav>
+<% end %>
