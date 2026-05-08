@@ -2,6 +2,16 @@
 
 Photo Gallery is a Rails + Hotwire app where signed-in users can browse seeded photos and like or unlike them without a full page reload.
 
+## What to Look For
+
+- Devise gates access to the gallery.
+- Photos are seeded from `photos.csv` into the database.
+- Likes update with Turbo Frames/Streams.
+- Pagination will use Turbo Frames/Streams when there are more than 20 photos. (Update the controller to show 5 instead of 20 to view functionality.)
+- Like counts persist with a counter cache.
+- Users can only like each photo once.
+- The layout is mobile responsive.
+
 ## Local Setup
 
 This app uses:
@@ -72,7 +82,7 @@ bin/rails db:drop db:create db:migrate db:seed
 - Likes use Rails routes/controllers with Turbo Frames and Turbo Streams.
 - Like counts persist with a database-backed counter cache.
 - Each user can like each photo only once, enforced by model validation and a database unique index.
-- Pagination uses Pagy and updates the photo results with Turbo Streams.
+- Pagination uses Pagy and updates the photo results with Turbo Streams, so when the photo set grows larger, it does not all load on one page. This keeps each request focused on the current page of records instead of loading the full gallery into memory and rendering every card at once.
 - Flash message dismissal uses a small Stimulus controller.
 
 Welcome to Clever's full-stack coding challenge. You'll build a small but complete web application using **Ruby on Rails** and **Hotwire** (Turbo + Stimulus). The goal is to assess how you think about Rails conventions, server-rendered interactivity, and clean UI without a heavy JavaScript framework.
