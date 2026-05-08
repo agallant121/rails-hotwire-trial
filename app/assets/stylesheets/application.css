@@ -1,13 +1,4 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+/* Base */
 
 :root {
   --brand-blue: #0075eb;
@@ -31,6 +22,8 @@ body {
 a {
   color: var(--brand-blue);
 }
+
+/* Layout */
 
 .site-header {
   align-items: center;
@@ -69,6 +62,8 @@ a {
   padding: 2rem clamp(1rem, 4vw, 2rem);
 }
 
+/* Buttons */
+
 .button {
   background: var(--brand-blue);
   border: 0;
@@ -84,6 +79,8 @@ a {
   background: #e8f2ff;
   color: var(--brand-blue);
 }
+
+/* Flash */
 
 .flash {
   align-items: center;
@@ -124,6 +121,8 @@ a {
   color: #9f1c1c;
 }
 
+/* Empty State */
+
 .empty-state {
   background: #fff;
   border: 1px solid var(--border-color);
@@ -139,6 +138,8 @@ a {
   color: var(--muted-color);
   margin: 0;
 }
+
+/* Authentication */
 
 .auth-card {
   background: #fff;
@@ -204,6 +205,8 @@ a {
 .auth-submit {
   width: 100%;
 }
+
+/* Gallery */
 
 .gallery-header {
   align-items: end;
@@ -272,6 +275,8 @@ a {
   width: 1rem;
 }
 
+/* Likes */
+
 .like-button {
   align-items: center;
   background: #fff;
@@ -291,6 +296,8 @@ a {
   background: #fff8e1;
   border-color: #f0c14b;
 }
+
+/* Pagination */
 
 .pagination {
   align-items: center;
@@ -323,6 +330,8 @@ a {
   background: transparent;
   color: var(--muted-color);
 }
+
+/* Mobile */
 
 @media (max-width: 40rem) {
   .site-header {
