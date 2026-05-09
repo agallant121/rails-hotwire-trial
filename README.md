@@ -78,5 +78,5 @@ bin/rails db:drop db:create db:migrate db:seed
 - Likes use Rails routes/controllers with Turbo Frames and Turbo Streams.
 - Like counts persist with a database-backed counter cache.
 - Each user can like each photo only once, enforced by model validation and a database unique index.
-- Pagination uses Pagy and updates the photo results with Turbo Streams, so when the photo set grows larger, it does not all load on one page. This keeps each request focused on the current page of records instead of loading the full gallery into memory and rendering every card at once.
+- Pagination uses Pagy and updates the photo results with Turbo Streams for the reasonable assumption that the gallery would eventually grow beyond the provided 10 photos. This keeps each request focused on the current page of records instead of loading the full gallery into memory and rendering every card at once.
 - Flash message dismissal uses a small Stimulus controller.
