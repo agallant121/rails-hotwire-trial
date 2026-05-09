@@ -80,3 +80,13 @@ bin/rails db:drop db:create db:migrate db:seed
 - Each user can like each photo only once, enforced by model validation and a database unique index.
 - Pagination uses Pagy and updates the photo results with Turbo Streams for the reasonable assumption that the gallery would eventually grow beyond the provided 10 photos. This keeps each request focused on the current page of records instead of loading the full gallery into memory and rendering every card at once.
 - Flash message dismissal uses a small Stimulus controller.
+
+## Future Improvements
+
+- Add an admin area for managing photos beyond the seed import workflow.
+- Add authorization, such as Pundit, to separate regular user access from admin-only actions.
+- Add search or filtering as the gallery grows.
+- Add photographer profiles with scoped photo ownership.
+- Add public/private publishing controls for photographer-owned photos.
+- Add fragment caching for the static parts of photo cards while keeping the user-specific like button dynamic.
+- Add background jobs for bulk photo imports or lightweight notifications as the app grows.
